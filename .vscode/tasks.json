@@ -1,0 +1,30 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build stage2",
+            "type": "shell",
+            "command": "bazelisk",
+            "args": [
+                "build",
+                "--compilation_mode=dbg",
+                "--config=clang_config",
+                "main:hello-world",
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}\\stage2",
+            },
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "label": "run stage2",
+            "type": "shell",
+            "command": "stage2/bazel-bin/main/hello-world",
+            "dependsOn":[
+                "build stage2",
+            ],
+        },
+    ],
+}
