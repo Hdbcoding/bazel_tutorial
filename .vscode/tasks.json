@@ -26,5 +26,55 @@
                 "build stage2",
             ],
         },
+        {
+            "label": "build stage1",
+            "type": "shell",
+            "command": "bazelisk",
+            "args": [
+                "build",
+                "--compilation_mode=dbg",
+                "--config=clang_config",
+                "main:hello-world",
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}\\stage1",
+            },
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "label": "run stage1",
+            "type": "shell",
+            "command": "stage1/bazel-bin/main/hello-world",
+            "dependsOn":[
+                "build stage1",
+            ],
+        },
+        {
+            "label": "build stage3",
+            "type": "shell",
+            "command": "bazelisk",
+            "args": [
+                "build",
+                "--compilation_mode=dbg",
+                "--config=clang_config",
+                "main:hello-world",
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}\\stage3",
+            },
+            "group": {
+                "kind": "build"
+            }
+        },
+        {
+            "label": "run stage3",
+            "type": "shell",
+            "command": "stage3/bazel-bin/main/hello-world",
+            "dependsOn":[
+                "build stage3",
+            ],
+        },
     ],
 }
